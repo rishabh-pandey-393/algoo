@@ -1,11 +1,27 @@
 class Solution {
 public:
     int candy(vector<int>& ratings) {
-        int n=ratings.size(),ans=0;
-        vector<int>v(n,1);
-        for(int i=1;i<n;i++) if(ratings[i]>ratings[i-1]) v[i]=v[i-1]+1;
-        for(int i=n-2;i>=0;i--) if(ratings[i]>ratings[i+1]) v[i]=max(v[i],v[i+1]+1);
-        for(int i=0;i<n;i++) ans+=v[i];
-        return ans;
+        int n=ratings.size();
+        int i=0,candy=n;
+        while(i<n-1){
+            if(ratings[i]==ratings[i+1]) {
+                i++;
+                continue;
+            }
+            int peak=0;
+            while(i<n-1 && ratings[i]<ratings[i+1]){
+                peak++;
+                candy+=peak;
+                i++;
+            } 
+            int valley=0;
+            while(i<n-1 && ratings[i]>ratings[i+1]){
+                valley++;
+                candy+=valley;
+                i++;
+            }
+            candy-=min(peak,valley);
+        }
+        return candy;
     }
 };
