@@ -9,13 +9,10 @@ public:
         
         function<bool(int)> isPossible = [&](int mid) -> bool {
             for(int i = mid; i <= n; i++) {
-                long long ind1 = ((i - 1) + (i - mid)) >> 1;
-                long long ind2 = ((i - 1) + (i - mid) + 1) >> 1;
-
-                long long diff1 = ((ind1 - (i - mid)) * A[ind1] - (pre[ind1] - pre[i - mid])) + ((pre[i] - pre[ind1]) - (i - ind1) * A[ind1]);
-                long long diff2 = ((ind2 - (i - mid)) * A[ind2] - (pre[ind2] - pre[i - mid])) + ((pre[i] - pre[ind2]) - (i - ind2) * A[ind2]);
+                long long ind = ((i - 1) + (i - mid)) >> 1;
+                long long diff = ((ind - (i - mid)) * A[ind] - (pre[ind] - pre[i - mid])) + ((pre[i] - pre[ind]) - (i - ind) * A[ind]);
                 
-                if(diff1 <= k || diff2 <= k) return true;
+                if(diff <= k) return true;
             }
             
             return false;
