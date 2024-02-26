@@ -9,15 +9,16 @@ public:
         
         function<bool(int)> isPossible = [&](int mid) -> bool {
             for(int i = mid; i <= n; i++) {
-                long long ind = ((i - 1) + (i - mid)) >> 1;
-                long long diff = ((ind - (i - mid)) * A[ind] - (pre[ind] - pre[i - mid])) + ((pre[i] - pre[ind]) - (i - ind) * A[ind]);
+                long long med1 = (i + (i - mid)) >> 1;
+                long long med2 = ((i - 1) + (i - mid)) >> 1;
+                long long diff = (pre[i] - pre[med1]) - (pre[med2 + 1] - pre[i - mid]);
                 
                 if(diff <= k) return true;
             }
             
             return false;
         };
-        // 1 2 4 6
+
         int lo = 1, hi = n;
         while(lo <= hi) {
             int mid = lo + hi >> 1;
